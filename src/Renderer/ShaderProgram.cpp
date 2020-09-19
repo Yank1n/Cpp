@@ -90,8 +90,8 @@ namespace Renderer
 		m_ID = shaderProgram.m_ID;
 		m_isCompiled = shaderProgram.m_isCompiled;
 
-		shaderProgram.m_ID = 0;
-		shaderProgram.m_isCompiled = false;
+		this->m_ID = 0;
+		this->m_isCompiled = false;
 
 		return *this;
 	}
@@ -101,7 +101,7 @@ namespace Renderer
 		m_ID = shaderProgram.m_ID;
 		m_isCompiled = shaderProgram.m_isCompiled;
 
-		shaderProgram.m_ID = 0;
-		shaderProgram.m_isCompiled = false;
+		this->m_ID = 0;
+		this->m_isCompiled = false;
 	}
 }

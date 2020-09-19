@@ -12,16 +12,20 @@ namespace Renderer
 	public:
 		ShaderProgram(const std::string& vertexShader, const std::string& fragmentShader);
 
+		ShaderProgram(ShaderProgram&& shaderProgram) noexcept;
+		
+		// Deleting constructors of default and l-value copying 
+		ShaderProgram() = delete;
+
+		ShaderProgram(ShaderProgram&) = delete;
+
 		~ShaderProgram();
 
-		// Deleting const of default, copying and operator =
-		ShaderProgram() = delete;
-		ShaderProgram(ShaderProgram&) = delete;
-		ShaderProgram& operator=(const ShaderProgram&) = delete;
-		ShaderProgram& operator=(const ShaderProgram &&shaderProgram) noexcept;
-		ShaderProgram(ShaderProgram&& shaderProgram) noexcept;
+		ShaderProgram& operator=(const ShaderProgram&& shaderProgram) noexcept;
 
-		
+		// Deleting operator of copying l-value		
+		ShaderProgram& operator=(const ShaderProgram&) = delete;
+
 		// Checking compiling of OpenGL shader program
 		bool isCompiled() const { return m_isCompiled; }
 		
