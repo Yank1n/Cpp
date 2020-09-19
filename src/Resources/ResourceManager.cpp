@@ -1,6 +1,10 @@
 #include "ResourceManager.h"
 #include "../Renderer/ShaderProgram.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#define STBI_ONLY_PNG
+#include "stb_image.h"
+
 ResourceManager::ResourceManager(const std::string& executablePath)
 {
 	size_t found = executablePath.find_last_of("/\\");
@@ -32,7 +36,7 @@ std::shared_ptr<Renderer::ShaderProgram> ResourceManager::loadShaders(const std:
 		return nullptr;
 	}
 
-	// Getting pointer to all shaders
+	// Creating new shader program	
 	std::shared_ptr<Renderer::ShaderProgram>& newShader = m_shaderPrograms.emplace(shaderName, std::make_shared<Renderer::ShaderProgram>(vertexString, fragmentString)).first->second;
 
 	// Check that it compiles
@@ -84,4 +88,24 @@ std::string ResourceManager::getFileString(const std::string& relativeFilePath) 
 
 	// return decoded string
 	return buffer.str();
+}
+
+void ResourceManager::loadTextures(const std::string& textureName, const std::string texturePath)
+{
+	int channels = 0;
+	int width = 0;
+	int height = 0;
+
+	stbi_set_flip_vertically_on_load(true);
+
+	unsigned char *pixels = stbi_load(std::string(m_path + "/" + texturePath).c_str(), &width, &height, &channels, 0);
+
+	if (!pixels)
+	{
+		std::cerr << "Can't load image: " << textureName << "\n";
+
+		return;
+	}
+
+	stbi_image_free(pixels);
 }

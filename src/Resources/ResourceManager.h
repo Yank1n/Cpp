@@ -38,6 +38,8 @@ public:
 	// Function for getting shaders from map of shader programs
 	std::shared_ptr<Renderer::ShaderProgram> getShaderProgram(const std::string& shaderName);
 
+	void loadTextures(const std::string &textureName, const std::string texturePath);
+
 private:
 	// Private function for finding a file's path
 	std::string getFileString(const std::string& relativeFilePath) const;
