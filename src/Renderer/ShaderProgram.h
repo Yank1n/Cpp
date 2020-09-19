@@ -21,7 +21,7 @@ namespace Renderer
 
 		~ShaderProgram();
 
-		ShaderProgram& operator=(const ShaderProgram&& shaderProgram) noexcept;
+		ShaderProgram& operator=(ShaderProgram&& shaderProgram) noexcept;
 
 		// Deleting operator of copying l-value		
 		ShaderProgram& operator=(const ShaderProgram&) = delete;
@@ -32,6 +32,8 @@ namespace Renderer
 		// Checking use status of OpenGL shader program
 		void use() const;
 
+		void setInt(const std::string& name, const int value);
+		
 	private:
 		// Functions of create shader, boolean member variable of compile status and ID of member
 		bool createShader(const std::string& source, const GLenum shaderType, GLuint& shaderID);

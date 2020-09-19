@@ -78,20 +78,14 @@ namespace Renderer
 		return true;
 	}
 
-	// Running of shader program
-	void ShaderProgram::use() const
-	{
-		glUseProgram(m_ID);
-	}
-
-	ShaderProgram& ShaderProgram::operator=(const ShaderProgram&& shaderProgram) noexcept
+	ShaderProgram& ShaderProgram::operator=(ShaderProgram&& shaderProgram) noexcept
 	{
 		glDeleteProgram(m_ID);
 		m_ID = shaderProgram.m_ID;
 		m_isCompiled = shaderProgram.m_isCompiled;
 
-		this->m_ID = 0;
-		this->m_isCompiled = false;
+		shaderProgram.m_ID = 0;
+		shaderProgram.m_isCompiled = false;
 
 		return *this;
 	}
@@ -103,5 +97,16 @@ namespace Renderer
 
 		this->m_ID = 0;
 		this->m_isCompiled = false;
+	}
+
+	// Running of shader program
+	void ShaderProgram::use() const
+	{
+		glUseProgram(m_ID);
+	}
+
+	void ShaderProgram::setInt(const std::string& name, const int value)
+	{
+		glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
 	}
 }

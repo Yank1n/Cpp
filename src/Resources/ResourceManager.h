@@ -12,6 +12,8 @@
 namespace Renderer
 {
 	class ShaderProgram;
+	
+	class Texture2D;
 }
 
 // Creating resource manager
@@ -38,7 +40,11 @@ public:
 	// Function for getting shaders from map of shader programs
 	std::shared_ptr<Renderer::ShaderProgram> getShaderProgram(const std::string& shaderName);
 
-	void loadTextures(const std::string &textureName, const std::string texturePath);
+	// Function for loading textures from files
+	std::shared_ptr<Renderer::Texture2D> loadTextures(const std::string& textureName, const std::string texturePath);
+
+	// Function for getting textures from map of shader programs
+	std::shared_ptr<Renderer::Texture2D> getTexture(const std::string& textureName);
 
 private:
 	// Private function for finding a file's path
@@ -46,6 +52,10 @@ private:
 	
 	// Type that contains shaders
 	typedef std::map<const std::string, std::shared_ptr<Renderer::ShaderProgram>> ShaderProgramsMap;
+
+	typedef std::map<const std::string, std::shared_ptr<Renderer::Texture2D>> TexturesMap;
+
+	TexturesMap m_textures;
 
 	ShaderProgramsMap m_shaderPrograms;
 
