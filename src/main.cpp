@@ -1,5 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/vec2.hpp>
 
 #include <iostream>
 
@@ -28,7 +29,7 @@ GLfloat texCood[]
     0.0f, 0.0f
 };
 
-
+glm::ivec2 g_screenSize(640, 480);
 int g_screenWidth = 640;
 int g_screenHeight = 480;
 
@@ -51,7 +52,7 @@ int main(int argc, char** argv)
 
 
     /* Create a windowed mode window and its OpenGL context */
-    GLFWwindow* pWindow = glfwCreateWindow(g_screenWidth, g_screenHeight, "Battle City", nullptr, nullptr);
+    GLFWwindow* pWindow = glfwCreateWindow(g_screenSize.x, g_screenSize.y, "Battle City", nullptr, nullptr);
     
     if (!pWindow)
     {
@@ -77,7 +78,7 @@ int main(int argc, char** argv)
     std::cout << "Render: " << glGetString(GL_RENDERER) << "\n";
     std::cout << "OpenGL version: " << glGetString(GL_VERSION) << "\n";
 
-    glClearColor(0, 0, 0, 0.5);
+    glClearColor(1, 1, 0, 1);
 
     {
         ResourceManager resourceManager(argv[0]);
@@ -153,9 +154,9 @@ int main(int argc, char** argv)
 
 void glfwWindowSizeCallback(GLFWwindow* ptrToWindow, int screenWidth, int screenHeight)
 {
-    g_screenWidth = screenWidth;
-    g_screenHeight = screenHeight;
-    glViewport(0, 0, g_screenWidth, g_screenHeight);
+    g_screenSize.x = screenWidth;
+    g_screenSize.y = screenHeight;
+    glViewport(0, 0, g_screenSize.x, g_screenSize.y);
 }
 
 void glfwKeyCallback(GLFWwindow* ptrToWindow, int key, int scanmode, int action, int mode)
