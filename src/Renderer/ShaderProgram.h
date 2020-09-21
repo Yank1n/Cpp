@@ -2,6 +2,9 @@
 #define SHADER_HEADER
 
 #include <glad/glad.h>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <string>
 #include <iostream>
 
@@ -33,6 +36,8 @@ namespace Renderer
 		void use() const;
 
 		void setInt(const std::string& name, const int value);
+
+		void setMatrix4(const std::string& name, const glm::mat4& matrix);
 		
 	private:
 		// Functions of create shader, boolean member variable of compile status and ID of member

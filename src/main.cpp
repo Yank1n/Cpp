@@ -1,6 +1,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <iostream>
 
@@ -10,9 +13,9 @@
 
 GLfloat point[]
 {
-    0.0f, 0.5f, 0.0f,
-    0.5f, -0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f
+    0.0f, 50.f, 0.0f,
+    50.f, -50.f, 0.0f,
+    -50.f, -50.f, 0.0f
 };
 
 GLfloat color[]
@@ -30,8 +33,6 @@ GLfloat texCood[]
 };
 
 glm::ivec2 g_screenSize(640, 480);
-int g_screenWidth = 640;
-int g_screenHeight = 480;
 
 void glfwWindowSizeCallback(GLFWwindow* ptrToWindow, int screenWidth, int screenHeight);
 void glfwKeyCallback(GLFWwindow* ptrToWindow, int key, int scanmode,int action, int mode);
@@ -128,6 +129,18 @@ int main(int argc, char** argv)
         pDefaultShaderProgram->use();
         pDefaultShaderProgram->setInt("tex", 0);
 
+        glm::mat4 modelMatrix_1 = glm::mat4(1.f);
+
+        modelMatrix_1 = glm::translate(modelMatrix_1, glm::vec3(100.f, 50.f, 0.f));
+
+        glm::mat4 modelMatrix_2 = glm::mat4(1.f);
+
+        modelMatrix_2 = glm::translate(modelMatrix_2, glm::vec3(590.f, 50.f, 0.f));
+
+        glm::mat4 projMatrx = glm::ortho(0.f, static_cast<float>(g_screenSize.x), 0.f, static_cast<float>(g_screenSize.y), -100.f, 100.f);
+
+        pDefaultShaderProgram->setMatrix4("projMat", projMatrx);
+
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(pWindow))
         {
@@ -138,6 +151,11 @@ int main(int argc, char** argv)
             pDefaultShaderProgram->use();
             glBindVertexArray(vao);
             tex->bind();
+
+            pDefaultShaderProgram->setMatrix4("modelMat", modelMatrix_1);
+            glDrawArrays(GL_TRIANGLES, 0, 3);
+
+            pDefaultShaderProgram->setMatrix4("modelMat", modelMatrix_2);
             glDrawArrays(GL_TRIANGLES, 0, 3);
 
             /* Swap front and back buffers */
