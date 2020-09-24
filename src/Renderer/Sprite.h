@@ -40,7 +40,7 @@ namespace Renderer
 
 		void setSize(const glm::vec2& size);
 
-		void setRotation(const glm::vec2& size);
+		void setRotation(const float rotation);
 
 	private:
 
@@ -53,6 +53,12 @@ namespace Renderer
 		glm::vec2 m_size;
 
 		float m_rotation;
+
+		GLuint m_VAO;
+
+		GLuint m_vertexCoordsVBO;
+
+		GLuint m_textureCoordsVBO;
 	};
 }
 
