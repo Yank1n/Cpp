@@ -14,6 +14,8 @@ namespace Renderer
 	class ShaderProgram;
 	
 	class Texture2D;
+
+	class Sprite;
 }
 
 // Creating resource manager
@@ -46,6 +48,12 @@ public:
 	// Function for getting textures from map of shader programs
 	std::shared_ptr<Renderer::Texture2D> getTexture(const std::string& textureName);
 
+	std::shared_ptr<Renderer::Sprite> loadSprite(const std::string& spriteName, const std::string &textureName, 
+												 const std::string &shaderName, const unsigned int spriteWidth, 
+												 const unsigned int spriteHeight);
+
+	std::shared_ptr<Renderer::Sprite> getSprite(const std::string& spriteName);
+
 private:
 	// Private function for finding a file's path
 	std::string getFileString(const std::string& relativeFilePath) const;
@@ -55,9 +63,13 @@ private:
 
 	typedef std::map<const std::string, std::shared_ptr<Renderer::Texture2D>> TexturesMap;
 
+	typedef std::map<const std::string, std::shared_ptr<Renderer::Sprite>> SpritesMap;
+
 	TexturesMap m_textures;
 
 	ShaderProgramsMap m_shaderPrograms;
+
+	SpritesMap m_sprites;
 
 	// Path to Debug/
 	std::string m_path;
