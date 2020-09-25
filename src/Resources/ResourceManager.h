@@ -7,6 +7,7 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 // If you want you can link a ShaderProgram as #include "../Renderer/ShaderProgram.h
 namespace Renderer
@@ -50,7 +51,14 @@ public:
 
 	std::shared_ptr<Renderer::Sprite> loadSprite(const std::string& spriteName, const std::string &textureName, 
 												 const std::string &shaderName, const unsigned int spriteWidth, 
-												 const unsigned int spriteHeight);
+												 const unsigned int spriteHeight,
+												 const std::string& subTextureName = "default");
+
+	std::shared_ptr<Renderer::Texture2D> loadTextureAtlas(const std::string& subTextureName,
+														  const std::string subTexturePath,
+														  const std::vector<std::string> subTexture,
+														  const unsigned int subTextureWidth,
+														  const unsigned int subTextureHeight);
 
 	std::shared_ptr<Renderer::Sprite> getSprite(const std::string& spriteName);
 
